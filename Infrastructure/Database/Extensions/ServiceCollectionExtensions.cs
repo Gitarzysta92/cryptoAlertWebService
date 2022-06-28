@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
 	public static IServiceCollection RegisterDataServices(
 		this IServiceCollection services, IConfiguration configuration)
 	{
-		var connectionString = configuration.GetConnectionString("DefaultConnection");
+		var connectionString = configuration["DefaultConnection"] ?? configuration.GetConnectionString("DefaultConnection");
 		services.AddDbContext<MainDbContext>(o => o.UseMySql(connectionString, MainDbContext.ServerVersion));
 		services.AddTransient<DocumentDbContext>();
 		return services;

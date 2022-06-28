@@ -39,7 +39,7 @@ public class DocumentDbContext
 
 	private (string, string) GetConfig(IConfiguration configuration)
 	{
-		var connectionString = configuration.GetConnectionString("MongoConnection");
+		var connectionString = configuration["MongoConnection"] ?? configuration.GetConnectionString("MongoConnection");
 		var parts = connectionString.Split(";").Select(p => p.Trim()).ToArray();
 		return (parts[0], parts[1].Split("=").Last());
 	}

@@ -16,7 +16,12 @@
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7099;http://localhost:5062",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MongoConnection": "mongodb://localhost:27017/cryptoalert; database=cryptoalert",
+        "DefaultConnection": "server=localhost; port=3306; database=cryptoalert; user=root; password=tzqx44!@#; Persist Security Info=False; Connect Timeout=300",
+        "WebPushSubject": "test@mail.com",
+        "WebPushPublicKey": "BHHixo9YR9qeruYOCV_zbAJ-wZzlzU3xhd3S6mAWs8R2viR6YW_0azbkPYr8wap_9Xbgmij9OvFzKP8Eo4ZYg-4",
+        "WebPushPrivateKey": "ilv7m6Eizt3ZbrqvoekedfSEOFh2JA5lTM1WyWCgnKE"
       }
     },
     "IIS Express": {

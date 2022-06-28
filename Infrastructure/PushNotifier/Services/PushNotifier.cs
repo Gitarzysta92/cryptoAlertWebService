@@ -14,9 +14,9 @@ public class PushNotifierService : IPushNotifierService
 		IConfiguration configuration)
 	{
 		_webPushClient = webPushClient;
-		var subject = configuration.GetSection("WebPush")["Subject"];
-		var publicKey = configuration.GetSection("WebPush")["PublicKey"];
-		var privateKey = configuration.GetSection("WebPush")["PrivateKey"];
+		var subject = configuration["WebPushSubject"] ?? configuration.GetSection("WebPush")["Subject"];
+		var publicKey = configuration["WebPushPublicKey"] ?? configuration.GetSection("WebPush")["PublicKey"];
+		var privateKey = configuration["WebPushPrivateKey"] ?? configuration.GetSection("WebPush")["PrivateKey"];
 		_vapidDetails = new VapidDetails(subject, publicKey, privateKey);
 
 		// var subject = @"mailto:example@example.com";
