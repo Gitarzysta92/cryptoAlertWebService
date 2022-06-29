@@ -45,7 +45,7 @@ steps:
     inputs:
       command: custom
       custom: 'ef '
-      arguments: migrations bundle --self-contained -r linux-x64 --output '$(Build.ArtifactStagingDirectory)/migration-bundle' --project '$(Build.SourcesDirectory)/Infrastructure/Database/Database.csproj'
+      arguments: migrations bundle --self-contained -r linux-x64 --output '$(Build.ArtifactStagingDirectory)/migration-bundle' --project './Infrastructure/Database/Database.csproj'
   
 
   # Package the file and uploads them as an artifact of the build
