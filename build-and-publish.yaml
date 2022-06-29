@@ -36,7 +36,7 @@ steps:
     inputs:
       command: custom
       custom: 'tool '
-      arguments: install --global dotnet-ef --version 7.0.0‑preview.5.22302.2
+      arguments: install --global dotnet-ef --version 6.0.6
 
   # Generate migration bundle as self-contained runtime
   - task: DotNetCoreCLI@2
