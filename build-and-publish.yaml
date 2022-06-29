@@ -38,11 +38,6 @@ steps:
       custom: 'tool '
       arguments: install --global dotnet-ef --version 6.0.0-preview.7.21378.4
 
-  - task: CmdLine@2
-    inputs:
-      script: 'ls -a'
-      workingDirectory: '$(Build.SourcesDirectory)/Applications/WebService'
-
   
   # Generate migration bundle as self-contained runtime
   - task: DotNetCoreCLI@2
@@ -50,7 +45,7 @@ steps:
     inputs:
       command: custom
       custom: 'ef '
-      arguments: migrations bundle --self-contained -r linux-x64 --output '$(Build.ArtifactStagingDirectory)/migration-bundle'
+      arguments: migrations bundle --self-contained -r linux-x64 -o '$(Build.ArtifactStagingDirectory)/migration-bundle'
       workingDirectory: '$(Build.SourcesDirectory)/Applications/WebService/'
 
   # Package the file and uploads them as an artifact of the build
