@@ -64,15 +64,20 @@ builder.Services.RegisterPriceProviderServices(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-	app.UseSwagger();
-	app.UseSwaggerUI();
-}
+// if (app.Environment.IsDevelopment())
+// {
+// 	app.UseSwagger();
+// 	app.UseSwaggerUI();
+// }
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseCors(o =>
 {
-	o.WithOrigins("http://localhost:4200");
+	var allowedOrigin = app.Configuration["AllowedOrigin"] ?? app.Configuration.GetSection("AllowedOrigin").Value;
+	o.WithOrigins(allowedOrigin);
 	o.SetIsOriginAllowed(_ => true);
 	o.AllowAnyHeader();
 	o.AllowAnyMethod();
@@ -86,7 +91,6 @@ app.MapHub<PricesHub>("/prices-ws");
 
 
 var serviceProvider = app.Services.GetService<IServiceProvider>();
-if (app.Environment.IsDevelopment())
 {
 	using var scope = (serviceProvider ?? throw new InvalidOperationException()).CreateScope();
 	var dbContext = scope.ServiceProvider.GetService<MainDbContext>();
@@ -110,6 +114,5 @@ Task.Run(() =>
 	scope.ServiceProvider.GetService<IPriceAggregatorService>()?.Aggregate();
 	exitEvent.WaitOne();
 });
-
 
 app.Run();
