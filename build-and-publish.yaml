@@ -41,7 +41,7 @@ steps:
   - task: CmdLine@2
     inputs:
       script: 'ls -a'
-      workingDirectory: '$(Build.SourcesDirectory)/Infrastructure/Database'
+      workingDirectory: '$(Build.SourcesDirectory)/Applications/WebService'
 
   
   # Generate migration bundle as self-contained runtime
