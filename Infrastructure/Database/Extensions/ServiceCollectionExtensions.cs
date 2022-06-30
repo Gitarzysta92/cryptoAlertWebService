@@ -10,7 +10,12 @@ public static class ServiceCollectionExtensions
 		this IServiceCollection services, IConfiguration configuration)
 	{
 		var connectionString = configuration["DefaultConnection"] ?? configuration.GetConnectionString("DefaultConnection");
-		services.AddDbContext<MainDbContext>(o => o.UseMySql(connectionString, MainDbContext.ServerVersion));
+		services.AddDbContext<MainDbContext>(o => o.UseMySql(connectionString, MainDbContext.ServerVersion, mySqlOptions =>
+				mySqlOptions.EnableRetryOnFailure(
+					maxRetryCount: 10,
+					maxRetryDelay: TimeSpan.FromSeconds(30),
+					errorNumbersToAdd: null)
+			));
 		services.AddTransient<DocumentDbContext>();
 		return services;
 	}
