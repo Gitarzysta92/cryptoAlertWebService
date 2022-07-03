@@ -7,7 +7,7 @@ namespace PriceAggregator.Exchanges.ByBit;
 
 public static class ByBitDataInitializer
 {
-	public static void Seed(MainDbContext context)
+	public static async Task Seed(MainDbContext context)
 	{
 		if (!context.Rates.Any(r => r.ExchangeId == (int) ExchangeIds.ByBit))
 		{
@@ -31,7 +31,7 @@ public static class ByBitDataInitializer
 				}
 			};
 			context.AddRange(countries);
-			context.SaveChanges();
+			await context.SaveChangesAsync();
 		}
 	}
 

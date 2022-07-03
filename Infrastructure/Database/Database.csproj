@@ -13,4 +13,7 @@
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2-servicing.1.ci.20220609194018" />
     </ItemGroup>
 
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+    </ItemGroup>
 </Project>

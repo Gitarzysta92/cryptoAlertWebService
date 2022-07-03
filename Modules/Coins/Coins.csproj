@@ -8,15 +8,16 @@
 
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1"/>
-        <PackageReference Include="System.Reactive" Version="5.0.0"/>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
+        <PackageReference Include="System.Reactive" Version="5.0.0" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\Infrastructure\Database\Database.csproj"/>
-        <ProjectReference Include="..\Exchanges\Exchanges.csproj"/>
+        <ProjectReference Include="..\..\Infrastructure\BinaryObjectStorage\BinaryObjectStorage.csproj" />
+        <ProjectReference Include="..\..\Infrastructure\Database\Database.csproj" />
+        <ProjectReference Include="..\Exchanges\Exchanges.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 </Project>

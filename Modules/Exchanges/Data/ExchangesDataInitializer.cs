@@ -1,3 +1,5 @@
+using BinaryObjectStorage;
+using BinaryObjectStorage.Models;
 using Database;
 using Database.Models;
 using Shared.Data;
@@ -6,7 +8,7 @@ namespace Exchanges.Data;
 
 public static class ExchangesDataInitializer
 {
-	public static void Seed(MainDbContext context)
+	public static async Task Seed(MainDbContext context)
 	{
 		if (!context.Exchanges.Any())
 		{
@@ -17,7 +19,40 @@ public static class ExchangesDataInitializer
 				new() {Id = (int) ExchangeIds.ByBit, Name = "Bitrix", WebsiteUrl = ""}
 			};
 			context.Exchanges.AddRange(exchanges);
-			context.SaveChanges();
+			await context.SaveChangesAsync();
+		}
+	}
+
+	public static void SeedExchangeImages(BinaryObjectStorageContext context)
+	{
+		if (!context.ExchangeIcons.CheckIsAnyBlobExists())
+		{
+			var coinIconFiles = new List<ExchangeIconFile>()
+			{
+				new()
+				{
+					FileName = $"{ExchangeIds.Zonda.ToString()}-{(int) ExchangeIds.Zonda}-light-icon",
+					ThemeType = ThemeType.Light,
+					ExchangeId = (int) ExchangeIds.Zonda
+				},
+				new()
+				{
+					FileName = $"{ExchangeIds.Coinbase.ToString()}-{(int) ExchangeIds.Coinbase}-light-icon",
+					ThemeType = ThemeType.Light,
+					ExchangeId = (int) ExchangeIds.Coinbase
+				},
+				new()
+				{
+					FileName = $"{ExchangeIds.ByBit.ToString()}-{(int) ExchangeIds.ByBit}-light-icon",
+					ThemeType = ThemeType.Light,
+					ExchangeId = (int) ExchangeIds.ByBit
+				}
+			};
+
+			foreach (var coinIconFile in coinIconFiles)
+			{
+				context.ExchangeIcons.Upload($"Assets/Images/{coinIconFile.FileName}.png", coinIconFile);
+			}
 		}
 	}
 }

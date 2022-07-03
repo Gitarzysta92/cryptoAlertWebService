@@ -2,6 +2,8 @@
 using Alerts.Extensions;
 using Alerts.Interfaces;
 using Aspects;
+using BinaryObjectStorage;
+using BinaryObjectStorage.Extensions;
 using Coins.Data;
 using Coins.Extensions;
 using Coins.Models.Mappings;
@@ -60,6 +62,7 @@ builder.Services.RegisterExchangesServices(builder.Configuration);
 builder.Services.RegisterIdentityServices(builder.Configuration);
 builder.Services.RegisterPriceAggregatorServices(builder.Configuration);
 builder.Services.RegisterPriceProviderServices(builder.Configuration);
+builder.Services.RegisterBinaryObjectsStorageServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -94,15 +97,18 @@ var serviceProvider = app.Services.GetService<IServiceProvider>();
 {
 	using var scope = (serviceProvider ?? throw new InvalidOperationException()).CreateScope();
 	var dbContext = scope.ServiceProvider.GetService<MainDbContext>();
-	ExchangesDataInitializer.Seed(dbContext!);
-	CoinsDataInitializer.Seed(dbContext!);
-	ZondaDataInitializer.Seed(dbContext!);
-	ByBitDataInitializer.Seed(dbContext!);
+	await ExchangesDataInitializer.Seed(dbContext!);
+	await CoinsDataInitializer.Seed(dbContext!);
+	await ZondaDataInitializer.Seed(dbContext!);
+	await ByBitDataInitializer.Seed(dbContext!);
 	var documentContext = scope.ServiceProvider.GetService<DocumentDbContext>();
 	documentContext?.CreateCollection(CollectionNames.Transactions);
 	ZondaDataInitializer.Seed(documentContext!);
 	ByBitDataInitializer.Seed(documentContext!);
 	CoinbaseDataInitializer.Seed(documentContext!);
+	var storageContext = scope.ServiceProvider.GetService<BinaryObjectStorageContext>();
+	ExchangesDataInitializer.SeedExchangeImages(storageContext!);
+	CoinsDataInitializer.SeedCoinImages(storageContext!);
 }
 
 Task.Run(() =>

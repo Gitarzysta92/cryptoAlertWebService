@@ -7,7 +7,7 @@ namespace PriceAggregator.Exchanges.Coinbase;
 
 public class CoinbaseDataInitializer
 {
-	public static void Seed(MainDbContext context)
+	public static async Task Seed(MainDbContext context)
 	{
 		if (!context.Rates.Any(r => r.ExchangeId == (int) ExchangeIds.Coinbase))
 		{
@@ -35,7 +35,7 @@ public class CoinbaseDataInitializer
 				}
 			};
 			context.AddRange(countries);
-			context.SaveChanges();
+			await context.SaveChangesAsync();
 		}
 	}
 

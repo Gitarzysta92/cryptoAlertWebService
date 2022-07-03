@@ -54,7 +54,7 @@ public class PricesRepository
 
 			await session.CommitTransactionAsync();
 		}
-		catch (Exception e)
+		catch (Exception)
 		{
 			await session.AbortTransactionAsync();
 		}

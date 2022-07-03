@@ -8,24 +8,37 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5"/>
-        <PackageReference Include="SignalRSwaggerGen" Version="3.2.1"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
-        <PackageReference Include="System.Reactive" Version="5.0.0"/>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5" />
+        <PackageReference Include="SignalRSwaggerGen" Version="3.2.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+        <PackageReference Include="System.Reactive" Version="5.0.0" />
     </ItemGroup>
 
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Aspects\ServiceBus\ServiceBus.csproj"/>
-        <ProjectReference Include="..\..\Infrastructure\Database\Database.csproj"/>
-        <ProjectReference Include="..\..\Infrastructure\PushNotifier\PushNotifier.csproj"/>
-        <ProjectReference Include="..\..\Infrastructure\WebSocket\WebSocket.csproj"/>
-        <ProjectReference Include="..\..\Modules\Coins\Coins.csproj"/>
-        <ProjectReference Include="..\..\Modules\Alerts\Alerts.csproj"/>
-        <ProjectReference Include="..\..\Modules\Identity\Identity.csproj"/>
-        <ProjectReference Include="..\..\Modules\PriceAggregator\PriceAggregator.csproj"/>
-        <ProjectReference Include="..\..\Modules\PriceProvider\PriceProvider.csproj"/>
+        <ProjectReference Include="..\..\Aspects\ServiceBus\ServiceBus.csproj" />
+        <ProjectReference Include="..\..\Infrastructure\BinaryObjectStorage\BinaryObjectStorage.csproj" />
+        <ProjectReference Include="..\..\Infrastructure\Database\Database.csproj" />
+        <ProjectReference Include="..\..\Infrastructure\PushNotifier\PushNotifier.csproj" />
+        <ProjectReference Include="..\..\Infrastructure\WebSocket\WebSocket.csproj" />
+        <ProjectReference Include="..\..\Modules\Coins\Coins.csproj" />
+        <ProjectReference Include="..\..\Modules\Alerts\Alerts.csproj" />
+        <ProjectReference Include="..\..\Modules\Identity\Identity.csproj" />
+        <ProjectReference Include="..\..\Modules\PriceAggregator\PriceAggregator.csproj" />
+        <ProjectReference Include="..\..\Modules\PriceProvider\PriceProvider.csproj" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Content Include="Assets\Images\Ape-5-light-icon.png" />
+      <Content Include="Assets\Images\Bitcoin-2-light-icon.png" />
+      <Content Include="Assets\Images\Bybit-3-light-icon.png" />
+      <Content Include="Assets\Images\Cardano-4-light-icon.png" />
+      <Content Include="Assets\Images\Coinbase-2-light-icon.png" />
+      <Content Include="Assets\Images\Etherum-1-light-icon.png" />
+      <Content Include="Assets\Images\Solana-3-light-icon.png" />
+      <Content Include="Assets\Images\Zonda-1-light-icon.png" />
     </ItemGroup>
 
 </Project>

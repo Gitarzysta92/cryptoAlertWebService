@@ -1,3 +1,5 @@
+using Database.Models;
+
 namespace Coins.Models;
 
 public class ColorThemeDto
@@ -7,4 +9,5 @@ public class ColorThemeDto
 	public string Primary { get; set; } = null!;
 	public string Secondary { get; set; } = null!;
 	public string Tertiary { get; set; } = null!;
+	public ThemeType Type { get; set; }
 }

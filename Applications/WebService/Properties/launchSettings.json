@@ -19,6 +19,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "MongoConnection": "mongodb://localhost:27017/cryptoalert; database=cryptoalert",
         "DefaultConnection": "server=localhost; port=3306; database=cryptoalert; user=root; password=tzqx44!@#; Persist Security Info=False; Connect Timeout=300",
+        "BlobConnection": "DefaultEndpointsProtocol=https;AccountName=cawebclientdev;AccountKey=wTLVqaov/L++pzmeeb64L6d/Lzff28j33cvSQvD4QI4whRby6a2z9xGz0W0yxTK8AmP7NkLWV2N/+ASt5Sf9rw==;EndpointSuffix=core.windows.net",
         "WebPushSubject": "test@mail.com",
         "WebPushPublicKey": "BHHixo9YR9qeruYOCV_zbAJ-wZzlzU3xhd3S6mAWs8R2viR6YW_0azbkPYr8wap_9Xbgmij9OvFzKP8Eo4ZYg-4",
         "WebPushPrivateKey": "ilv7m6Eizt3ZbrqvoekedfSEOFh2JA5lTM1WyWCgnKE"

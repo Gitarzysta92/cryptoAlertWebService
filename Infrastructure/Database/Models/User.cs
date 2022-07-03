@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Database.Models;
 
 public class User
-{
+{ 
 	[Key] public Guid Id { get; set; }
 
 	public int? DashboardId { get; set; }

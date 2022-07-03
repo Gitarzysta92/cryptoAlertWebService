@@ -21,7 +21,7 @@ public class CoinsRepository
 	public async Task<List<CoinDto>> GetCoins()
 	{
 		var alerts = await _db.Coins
-			.Include(c => c.ColorTheme)
+			.Include(c => c.ColorThemes)
 			.Include(c => c.Rates)
 			.ToListAsync();
 

@@ -7,7 +7,7 @@ namespace PriceAggregator.Exchanges.Zonda;
 
 public static class ZondaDataInitializer
 {
-	public static void Seed(MainDbContext context)
+	public static async Task Seed(MainDbContext context)
 	{
 		if (!context.Rates.Any(r => r.ExchangeId == (int) ExchangeIds.Zonda))
 		{
@@ -32,7 +32,7 @@ public static class ZondaDataInitializer
 				new() {CoinId = (int) CoinIds.Ape, ExchangeId = (int) ExchangeIds.Zonda, Code = "APE-USD", RawCode = "APE-USD"}
 			};
 			context.AddRange(countries);
-			context.SaveChanges();
+			await context.SaveChangesAsync();
 		}
 	}
 
