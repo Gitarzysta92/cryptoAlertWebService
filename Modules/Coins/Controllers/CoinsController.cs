@@ -30,9 +30,16 @@ public class CoinsController : ControllerBase
 		var coins = await _coinsRepository.GetCoins();
 		return Ok(coins);
 	}
+	
+	[HttpGet("{coinId}")]
+	public async Task<IActionResult> GetCoin(int coinId)
+	{
+		var coins = await _coinsRepository.GetCoin(coinId);
+		return Ok(coins);
+	}
 
 	// GET /api/coins/{{exchangeId}}/rates
-	[HttpGet("{{coinId}}/rates")]
+	[HttpGet("{coinId}/rates")]
 	public async Task<IActionResult> GetRates(int coinId)
 	{
 		var rates = await _ratesRepository.GetRates(coinId);

@@ -11,6 +11,8 @@ public class AlertDto
 	public int CoinId { get; set; }
 	public int StrategyId { get; set; }
 	public string Name { get; set; } = null!;
+	public string Description { get; set; } = null!;
+	public string Code { get; set; } = null!;
 	public AlertType Type { get; set; }
 	public int TargetPrice { get; set; }
 

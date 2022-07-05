@@ -14,9 +14,9 @@ public static class ExchangesDataInitializer
 		{
 			var exchanges = new List<Exchange>
 			{
-				new() {Id = (int) ExchangeIds.Zonda, Name = "Zonda", WebsiteUrl = ""},
-				new() {Id = (int) ExchangeIds.Coinbase, Name = "Coinbase", WebsiteUrl = ""},
-				new() {Id = (int) ExchangeIds.ByBit, Name = "Bitrix", WebsiteUrl = ""}
+				new() {Id = (int) ExchangeIds.Zonda, Name = ExchangeIds.Zonda.ToString(), WebsiteUrl = ""},
+				new() {Id = (int) ExchangeIds.Coinbase, Name = ExchangeIds.Coinbase.ToString(), WebsiteUrl = ""},
+				new() {Id = (int) ExchangeIds.ByBit, Name = ExchangeIds.ByBit.ToString(), WebsiteUrl = ""}
 			};
 			context.Exchanges.AddRange(exchanges);
 			await context.SaveChangesAsync();

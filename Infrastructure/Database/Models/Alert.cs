@@ -7,8 +7,10 @@ public class Alert
 	public int Id { get; set; }
 	public Guid UserId { get; set; }
 	public int CoinId { get; set; }
-	public int StrategyId { get; set; }
+	public int? StrategyId { get; set; }
 	public string Name { get; set; } = null!;
+	public string Description { get; set; } = null!;
+	public string Code { get; set; } = null!;
 	public AlertType Type { get; set; }
 	public int TargetPrice { get; set; }
 	public string Subscription { get; set; } = null!;
@@ -23,5 +25,7 @@ public class Alert
 
 public enum AlertType
 {
-	Push
+	InApp,
+	Push,
+	PushAndEmail
 }

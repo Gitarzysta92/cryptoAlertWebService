@@ -24,8 +24,8 @@ public static class CodeSymbols
 		var codes = new List<string>();
 
 		foreach (var coinCode in coinCodes)
-		foreach (var fiatCode in fiatCodes)
-			codes.Add($"{coinCode}-{fiatCode}");
+			foreach (var fiatCode in fiatCodes)
+				codes.Add($"{coinCode}-{fiatCode}");
 
 		return codes;
 	}

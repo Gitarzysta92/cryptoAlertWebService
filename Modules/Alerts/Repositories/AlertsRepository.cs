@@ -52,6 +52,23 @@ public class AlertsRepository
 		await _db.SaveChangesAsync();
 	}
 
+	public async Task CloneAlerts(Guid sourceUserId, Guid targetUserId)
+	{
+		var sourceAlerts = await _db.Alerts
+			.Where(a => a.UserId == sourceUserId && a.StrategyId == null && a.Type == AlertType.InApp)
+			.AsNoTracking()
+			.ToListAsync();
+
+		foreach (var sourceAlert in sourceAlerts)
+		{
+			sourceAlert.Id = 0;
+			sourceAlert.UserId = targetUserId;
+		}
+
+		await _db.Alerts.AddRangeAsync(sourceAlerts);
+		await _db.SaveChangesAsync();
+	}
+
 	public async Task DeleteAlert(int alertId)
 	{
 		var alert = await _db.Alerts.FindAsync(alertId);

@@ -13,8 +13,10 @@ public static class ServiceCollectionExtensions
 	{
 		services.AddTransient<AlertsRepository>();
 		services.AddTransient<CoinsRepository>();
+		services.AddTransient<StrategiesRepository>();
 		services.AddTransient<IAlertsService, AlertsService>();
 		services.AddTransient<IAlertsEmitterService, AlertsEmitterService>();
+		services.AddTransient<IAlertsCloneService, AlertsCloneService>();
 		return services;
 	}
 }

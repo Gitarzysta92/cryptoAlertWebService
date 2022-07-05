@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
+using Alerts.Data;
 using Alerts.Extensions;
 using Alerts.Interfaces;
+using Alerts.Models.Mappings;
 using Aspects;
 using BinaryObjectStorage;
 using BinaryObjectStorage.Extensions;
@@ -12,6 +14,7 @@ using Database.Extensions;
 using Exchanges.Data;
 using Exchanges.Extensions;
 using Exchanges.Models.Mappings;
+using Identity.Data;
 using Identity.Extensions;
 using Identity.Models.Mappings;
 using PriceAggregator.Exchanges.ByBit;
@@ -46,6 +49,8 @@ builder.Services.AddAutoMapper(cfg =>
 	cfg.AddProfile<ZondaTransactionProfile>();
 	cfg.AddProfile<ByBitTransactionProfile>();
 	cfg.AddProfile<PriceProfile>();
+	cfg.AddProfile<AlertProfile>();
+	cfg.AddProfile<StrategyProfile>();
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -101,6 +106,8 @@ var serviceProvider = app.Services.GetService<IServiceProvider>();
 	await CoinsDataInitializer.Seed(dbContext!);
 	await ZondaDataInitializer.Seed(dbContext!);
 	await ByBitDataInitializer.Seed(dbContext!);
+	await IdentityDataInitializer.Seed(dbContext!);
+	await AlertsDataInitializer.Seed(dbContext!);
 	var documentContext = scope.ServiceProvider.GetService<DocumentDbContext>();
 	documentContext?.CreateCollection(CollectionNames.Transactions);
 	ZondaDataInitializer.Seed(documentContext!);
@@ -117,6 +124,7 @@ Task.Run(() =>
 	using var scope = (serviceProvider ?? throw new InvalidOperationException()).CreateAsyncScope();
 	scope.ServiceProvider.GetService<IPricesEmitterService>()?.Initialize();
 	scope.ServiceProvider.GetService<IAlertsEmitterService>()?.Initialize();
+	scope.ServiceProvider.GetService<IAlertsCloneService>()?.Initialize();
 	scope.ServiceProvider.GetService<IPriceAggregatorService>()?.Aggregate();
 	exitEvent.WaitOne();
 });

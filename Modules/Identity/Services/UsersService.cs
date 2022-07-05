@@ -2,6 +2,7 @@ using Aspects;
 using Identity.Interfaces;
 using Identity.Models;
 using Identity.Repositories;
+using Shared.Models;
 
 namespace Identity.Services;
 
@@ -38,7 +39,6 @@ public class UsersService : IUsersService
 	public async Task<UserDto> CloneUser(Guid sourceUserId, CreateUserDto createUserDto)
 	{
 		var sourceUser = await _usersRepository.GetUser(sourceUserId);
-
 		if (sourceUser == null)
 			throw new Exception("User doesn't exists");
 
@@ -52,7 +52,22 @@ public class UsersService : IUsersService
 
 		var userId = await _usersRepository.SaveUser(userDto);
 		userDto.Id = userId;
-		_serviceBus.Emit(SystemMessages.CloneUser, userDto);
+
+		var sourceDashboard = await _usersRepository.GetUserDashboard(sourceUserId);
+		var dashboardDto = new DashboardDto
+		{
+			UserId = userId,
+			Codes = sourceDashboard?.Codes ?? new List<string>()
+		};
+		await _usersRepository.SaveUserDashboard(dashboardDto);
+
+		var userCloneDto = new UserCloneDto()
+		{
+			SourceUserId = sourceUserId,
+			TargetUserId = userId
+		};
+		_serviceBus.Emit(SystemMessages.CloneUser, userCloneDto);
+		
 		return userDto;
 	}
 }

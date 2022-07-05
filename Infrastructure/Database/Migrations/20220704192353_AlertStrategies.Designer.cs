@@ -3,6 +3,7 @@ using System;
 using Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220704192353_AlertStrategies")]
+    partial class AlertStrategies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,10 +26,6 @@ namespace Database.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<int>("CoinId")
                         .HasColumnType("int");
@@ -144,8 +142,7 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Dashboards");
                 });
@@ -228,6 +225,9 @@ namespace Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<int?>("DashboardId")
+                        .HasColumnType("int");
+
                     b.Property<int>("MaxActiveAlarms")
                         .HasColumnType("int");
 
@@ -242,6 +242,8 @@ namespace Database.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DashboardId");
 
                     b.ToTable("Users");
                 });
@@ -279,8 +281,8 @@ namespace Database.Migrations
             modelBuilder.Entity("Database.Models.Dashboard", b =>
                 {
                     b.HasOne("Database.Models.User", "User")
-                        .WithOne("Dashboard")
-                        .HasForeignKey("Database.Models.Dashboard", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -317,6 +319,15 @@ namespace Database.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Database.Models.User", b =>
+                {
+                    b.HasOne("Database.Models.Dashboard", "Dashboard")
+                        .WithMany()
+                        .HasForeignKey("DashboardId");
+
+                    b.Navigation("Dashboard");
+                });
+
             modelBuilder.Entity("Database.Models.Coin", b =>
                 {
                     b.Navigation("ColorThemes");
@@ -332,12 +343,6 @@ namespace Database.Migrations
             modelBuilder.Entity("Database.Models.Strategy", b =>
                 {
                     b.Navigation("Alerts");
-                });
-
-            modelBuilder.Entity("Database.Models.User", b =>
-                {
-                    b.Navigation("Dashboard")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

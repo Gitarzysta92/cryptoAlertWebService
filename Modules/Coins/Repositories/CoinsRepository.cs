@@ -20,11 +20,21 @@ public class CoinsRepository
 
 	public async Task<List<CoinDto>> GetCoins()
 	{
-		var alerts = await _db.Coins
+		var coins = await _db.Coins
 			.Include(c => c.ColorThemes)
 			.Include(c => c.Rates)
 			.ToListAsync();
 
-		return alerts.Select(a => _mapper.Map<CoinDto>(a)).ToList();
+		return coins.Select(a => _mapper.Map<CoinDto>(a)).ToList();
+	}
+
+	public async Task<object?> GetCoin(int coinId)
+	{
+		var coin = await _db.Coins
+			.Include(c => c.ColorThemes)
+			.Include(c => c.Rates)
+			.FirstOrDefaultAsync(c => c.Id == coinId);
+
+		return _mapper.Map<CoinDto>(coin);
 	}
 }
