@@ -12,6 +12,7 @@ public static class ServiceCollectionExtensions
 		this IServiceCollection services, IConfiguration configuration)
 	{
 		services.AddTransient<IPricesEmitterService, PricesEmitterService>();
+		services.AddTransient<IAveragePricesService, AveragePricesService>();
 		services.AddTransient<PricesRepository>();
 		return services;
 	}

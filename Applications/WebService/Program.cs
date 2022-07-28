@@ -29,6 +29,9 @@ using PriceProvider.Interfaces;
 using PriceProvider.Models.Mappings;
 using PushNotifier.Extensions;
 using Shared.Models.Mappings;
+using Trading.Data;
+using Trading.Extensions;
+using Trading.Models.Mappings;
 using WebSocket.Extensions;
 using WebSocket.Hubs;
 using WebSocket.Services;
@@ -51,6 +54,10 @@ builder.Services.AddAutoMapper(cfg =>
 	cfg.AddProfile<PriceProfile>();
 	cfg.AddProfile<AlertProfile>();
 	cfg.AddProfile<StrategyProfile>();
+	cfg.AddProfile<TradePriceProfile>();
+	cfg.AddProfile<TradeTransactionProfile>();
+	cfg.AddProfile<WalletProfile>();
+	cfg.AddProfile<TradeTransactionRequestProfile>();
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -68,6 +75,7 @@ builder.Services.RegisterIdentityServices(builder.Configuration);
 builder.Services.RegisterPriceAggregatorServices(builder.Configuration);
 builder.Services.RegisterPriceProviderServices(builder.Configuration);
 builder.Services.RegisterBinaryObjectsStorageServices(builder.Configuration);
+builder.Services.RegisterTradingServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -109,13 +117,15 @@ var serviceProvider = app.Services.GetService<IServiceProvider>();
 	await IdentityDataInitializer.Seed(dbContext!);
 	await AlertsDataInitializer.Seed(dbContext!);
 	var documentContext = scope.ServiceProvider.GetService<DocumentDbContext>();
-	documentContext?.CreateCollection(CollectionNames.Transactions);
+	documentContext?.CreateCollection(CollectionNames.Wallets);
+	await TradeTransactionsDataInitializer.Seed(dbContext!, documentContext!);
 	ZondaDataInitializer.Seed(documentContext!);
 	ByBitDataInitializer.Seed(documentContext!);
 	CoinbaseDataInitializer.Seed(documentContext!);
 	var storageContext = scope.ServiceProvider.GetService<BinaryObjectStorageContext>();
 	ExchangesDataInitializer.SeedExchangeImages(storageContext!);
 	CoinsDataInitializer.SeedCoinImages(storageContext!);
+	
 }
 
 Task.Run(() =>

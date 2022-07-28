@@ -15,15 +15,18 @@ public class PricesEmitterService : IPricesEmitterService
 	private readonly PricesRepository _pricesRepository;
 	private readonly ServiceBus _serviceBus;
 	private readonly IWebSocketGatewayService _webSocketGateway;
+	private readonly IAveragePricesService _averagePricesService;
 
 	public PricesEmitterService(
 		ServiceBus serviceBus,
 		PricesRepository pricesRepository,
-		IWebSocketGatewayService webSocketGateway)
+		IWebSocketGatewayService webSocketGateway,
+		IAveragePricesService averagePricesService)
 	{
 		_serviceBus = serviceBus;
 		_pricesRepository = pricesRepository;
 		_webSocketGateway = webSocketGateway;
+		_averagePricesService = averagePricesService;
 	}
 
 	public void Initialize()
@@ -55,7 +58,10 @@ public class PricesEmitterService : IPricesEmitterService
 		if (prices.Length == 0)
 			return;
 
-		await _webSocketGateway.EmitMessage(SystemMessages.PricesUpdate, JsonSerializer.Serialize(prices), code);
+		await _webSocketGateway.EmitMessage(SystemMessages.PricesUpdate, JsonSerializer.Serialize(_prices.Values), code);
+
+		var averagePrices = _averagePricesService.CalculateAveragePrices(_prices.Values);
+		await _webSocketGateway.EmitMessage(SystemMessages.PricesUpdate, JsonSerializer.Serialize(averagePrices), "Average-Prices");
 	}
 
 	private void SetTrend(PriceDto p)

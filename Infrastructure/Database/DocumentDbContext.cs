@@ -22,8 +22,8 @@ public class DocumentDbContext
 
 	private IMongoDatabase _database { get; } = null!;
 
-	public IMongoCollection<Transaction> Transactions =>
-		_database.GetCollection<Transaction>(CollectionNames.Transactions);
+	public IMongoCollection<Wallet> Wallets =>
+		_database.GetCollection<Wallet>(CollectionNames.Wallets);
 
 	public IMongoCollection<Price> Prices => _database.GetCollection<Price>(CollectionNames.Prices);
 
@@ -47,6 +47,7 @@ public class DocumentDbContext
 
 public struct CollectionNames
 {
-	public const string Transactions = "transactions";
+	public const string Wallets = "wallets";
 	public const string Prices = "prices";
+	
 }

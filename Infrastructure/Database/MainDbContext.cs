@@ -23,6 +23,7 @@ public class MainDbContext : DbContext
 	public DbSet<Strategy> Strategies { get; set; } = null!;
 	public DbSet<User> Users { get; set; } = null!;
 	public DbSet<Dashboard> Dashboards { get; set; } = null!;
+	public DbSet<TradeTransaction> TradeTransactions { get; set; } = null!;
 
 	protected override void OnConfiguring(DbContextOptionsBuilder options)
 	{

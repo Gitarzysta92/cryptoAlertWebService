@@ -27,6 +27,7 @@
         <ProjectReference Include="..\..\Modules\Identity\Identity.csproj" />
         <ProjectReference Include="..\..\Modules\PriceAggregator\PriceAggregator.csproj" />
         <ProjectReference Include="..\..\Modules\PriceProvider\PriceProvider.csproj" />
+        <ProjectReference Include="..\..\Modules\Trading\Trading.csproj" />
     </ItemGroup>
 
 

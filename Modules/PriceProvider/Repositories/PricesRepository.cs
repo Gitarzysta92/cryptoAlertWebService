@@ -30,6 +30,12 @@ public class PricesRepository
 		var prices = (await _documentDbContext.Prices.FindAsync(p => p.Code == code)).ToList();
 		return prices.Select(a => _mapper.Map<PriceDto>(a)).ToList();
 	}
+	
+	public async Task<IList<PriceDto>> GetPrices()
+	{
+		var prices = (await _documentDbContext.Prices.FindAsync(_ => true)).ToList();
+		return prices.Select(a => _mapper.Map<PriceDto>(a)).ToList();
+	}
 
 	public async Task SavePrices(IList<PriceDto> priceDtos, string code)
 	{
