@@ -36,6 +36,11 @@ public class AlertsController : ControllerBase
 	[HttpPut("{userId}")]
 	public async Task<IActionResult> CreateAlert(Guid userId, [FromBody] AlertDto alert)
 	{
+		if (alert.TargetPrice < 1)
+		{
+			return BadRequest("Target price must be above 0");
+		}
+		
 		var alerts = await _alertsService.CreateAlert(alert);
 		return Ok(alerts);
 	}

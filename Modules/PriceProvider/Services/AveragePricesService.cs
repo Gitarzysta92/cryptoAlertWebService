@@ -18,7 +18,15 @@ public class AveragePricesService : IAveragePricesService
 
 	public List<AveragePriceDto> CalculateAveragePrices(IEnumerable<PriceDto> prices)
 	{
-		var priceDtos = prices as PriceDto[] ?? prices.ToArray();
+		var priceDtos = prices.Select(p => new PriceDto
+		{
+			Id = p.Id,
+			Code = p.Code,
+			Value = p.Value,
+			ExchangeId = p.ExchangeId,
+			Trend = p.Trend
+		}).ToArray();
+		
 		foreach (var price in priceDtos)
 		{
 			price.Code = CodesHelper.GetCoinShortNameFromCode(price.Code);

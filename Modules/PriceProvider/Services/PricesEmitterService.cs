@@ -42,8 +42,8 @@ public class PricesEmitterService : IPricesEmitterService
 	{
 		foreach (var prices in pricesGroups)
 		{
-			await EmitPrices(prices.Item2, prices.Key);
 			await _pricesRepository.SavePrices(prices.Item2, prices.Key);
+			await EmitPrices(prices.Item2, prices.Key);
 		}
 	}
 
@@ -58,7 +58,7 @@ public class PricesEmitterService : IPricesEmitterService
 		if (prices.Length == 0)
 			return;
 
-		await _webSocketGateway.EmitMessage(SystemMessages.PricesUpdate, JsonSerializer.Serialize(_prices.Values), code);
+		await _webSocketGateway.EmitMessage(SystemMessages.PricesUpdate, JsonSerializer.Serialize(_prices.Values.Where(v => v.Code == code)), code);
 
 		var averagePrices = _averagePricesService.CalculateAveragePrices(_prices.Values);
 		await _webSocketGateway.EmitMessage(SystemMessages.PricesUpdate, JsonSerializer.Serialize(averagePrices), "Average-Prices");
