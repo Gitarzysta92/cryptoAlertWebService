@@ -1,11 +1,11 @@
 ﻿using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text.Json;
-using Aspects.Models;
+using ServiceBus.Models;
 
-namespace Aspects;
+namespace ServiceBus.Services;
 
-public class ServiceBus
+public class MessageService
 {
 	private readonly Subject<SystemMessage> _queue = new();
 

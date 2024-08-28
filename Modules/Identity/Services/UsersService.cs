@@ -1,19 +1,20 @@
-using Aspects;
 using Identity.Interfaces;
 using Identity.Models;
 using Identity.Repositories;
+using ServiceBus.Constants;
+using ServiceBus.Services;
 using Shared.Models;
 
 namespace Identity.Services;
 
 public class UsersService : IUsersService
 {
-	private readonly ServiceBus _serviceBus;
+	private readonly MessageService _serviceBus;
 	private readonly UsersRepository _usersRepository;
 
 	public UsersService(
 		UsersRepository usersRepository,
-		ServiceBus serviceBus
+		MessageService serviceBus
 	)
 	{
 		_usersRepository = usersRepository;

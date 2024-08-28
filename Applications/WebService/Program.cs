@@ -3,7 +3,7 @@ using Alerts.Data;
 using Alerts.Extensions;
 using Alerts.Interfaces;
 using Alerts.Models.Mappings;
-using Aspects;
+
 using BinaryObjectStorage;
 using BinaryObjectStorage.Extensions;
 using Coins.Data;
@@ -28,6 +28,7 @@ using PriceProvider.Extensions;
 using PriceProvider.Interfaces;
 using PriceProvider.Models.Mappings;
 using PushNotifier.Extensions;
+using ServiceBus.Services;
 using Shared.Models.Mappings;
 using Trading.Data;
 using Trading.Extensions;
@@ -64,7 +65,7 @@ builder.Services.AddSwaggerGen(options =>
 {
 	options.AddSignalRSwaggerGen(x => x.ScanAssembly(Assembly.GetAssembly(typeof(WebSocketGatewayService))));
 });
-builder.Services.AddSingleton(typeof(ServiceBus));
+builder.Services.AddSingleton(typeof(MessageService));
 builder.Services.RegisterDataServices(builder.Configuration);
 builder.Services.RegisterWebSocketServices(builder.Configuration);
 builder.Services.RegisterPushNotificationServices(builder.Configuration);
@@ -128,7 +129,7 @@ var serviceProvider = app.Services.GetService<IServiceProvider>();
 	
 }
 
-Task.Run(() =>
+await Task.Run(() =>
 {
 	var exitEvent = new ManualResetEvent(false);
 	using var scope = (serviceProvider ?? throw new InvalidOperationException()).CreateAsyncScope();

@@ -1,12 +1,14 @@
 ﻿using System.Reactive.Linq;
 using System.Text.Json;
-using Aspects;
 using AutoMapper;
 using PriceAggregator.Repositories;
 using PriceAggregator.Zonda.Models;
+using ServiceBus.Constants;
+using ServiceBus.Services;
 using Shared.Data;
 using Shared.Models;
 using WebSocketGateway.Interfaces;
+
 
 namespace PriceAggregator.Exchanges.Zonda;
 
@@ -16,7 +18,7 @@ public class ZondaHandlerService
 	private const string Uri = "wss://api.zonda.exchange/websocket/";
 	private readonly IMapper _mapper;
 	private readonly RatesRepository _ratesRepository;
-	private readonly ServiceBus _serviceBus;
+	private readonly MessageService _serviceBus;
 
 
 	private readonly IWebSocketClientService _webSocketClientService;
@@ -25,7 +27,7 @@ public class ZondaHandlerService
 		IWebSocketClientService webSocketClientService,
 		IMapper mapper,
 		RatesRepository ratesRepository,
-		ServiceBus serviceBus
+		MessageService serviceBus
 	)
 	{
 		_webSocketClientService = webSocketClientService;

@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
@@ -11,7 +11,6 @@
   "profiles": {
     "web_service": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7099;http://localhost:5062",
@@ -23,7 +22,8 @@
         "WebPushSubject": "test@mail.com",
         "WebPushPublicKey": "BHHixo9YR9qeruYOCV_zbAJ-wZzlzU3xhd3S6mAWs8R2viR6YW_0azbkPYr8wap_9Xbgmij9OvFzKP8Eo4ZYg-4",
         "WebPushPrivateKey": "ilv7m6Eizt3ZbrqvoekedfSEOFh2JA5lTM1WyWCgnKE"
-      }
+      },
+      "dotnetRunMessages": true
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -35,5 +35,3 @@
     }
   }
 }
-
-

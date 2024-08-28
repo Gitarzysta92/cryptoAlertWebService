@@ -1,7 +1,8 @@
 using System.Reactive.Linq;
 using Alerts.Interfaces;
 using Alerts.Repositories;
-using Aspects;
+using ServiceBus.Constants;
+using ServiceBus.Services;
 using Shared.Models;
 
 namespace Alerts.Services;
@@ -10,13 +11,13 @@ namespace Alerts.Services;
 public class AlertsCloneService : IAlertsCloneService
 {
 	private readonly AlertsRepository _alertsRepository;
-	private readonly ServiceBus _serviceBus;
+	private readonly MessageService _serviceBus;
 	private readonly StrategiesRepository _strategiesRepository;
 
 	public AlertsCloneService(
 		AlertsRepository alertsRepository,
 		StrategiesRepository strategiesRepository,
-		ServiceBus serviceBus)
+    MessageService serviceBus)
 	{
 		_alertsRepository = alertsRepository;
 		_strategiesRepository = strategiesRepository;

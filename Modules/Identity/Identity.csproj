@@ -13,7 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Aspects\ServiceBus\ServiceBus.csproj" />
+        <ProjectReference Include="..\..\Infrastructure\ServiceBus\ServiceBus.csproj" />
         <ProjectReference Include="..\..\Infrastructure\Database\Database.csproj" />
         <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>

@@ -1,10 +1,11 @@
 using System.Reactive.Linq;
 using System.Text.Json;
-using Aspects;
 using Database.Models;
 using PriceProvider.Interfaces;
 using PriceProvider.Models;
 using PriceProvider.Repositories;
+using ServiceBus.Constants;
+using ServiceBus.Services;
 using WebSocket.Interfaces;
 
 namespace PriceProvider.Services;
@@ -13,12 +14,12 @@ public class PricesEmitterService : IPricesEmitterService
 {
 	private readonly IDictionary<string, PriceDto> _prices = new Dictionary<string, PriceDto>();
 	private readonly PricesRepository _pricesRepository;
-	private readonly ServiceBus _serviceBus;
+	private readonly MessageService _serviceBus;
 	private readonly IWebSocketGatewayService _webSocketGateway;
 	private readonly IAveragePricesService _averagePricesService;
 
 	public PricesEmitterService(
-		ServiceBus serviceBus,
+    MessageService serviceBus,
 		PricesRepository pricesRepository,
 		IWebSocketGatewayService webSocketGateway,
 		IAveragePricesService averagePricesService)

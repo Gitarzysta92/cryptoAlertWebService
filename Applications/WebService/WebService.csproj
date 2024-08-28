@@ -17,7 +17,7 @@
 
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Aspects\ServiceBus\ServiceBus.csproj" />
+        <ProjectReference Include="..\..\Infrastructure\ServiceBus\ServiceBus.csproj" />
         <ProjectReference Include="..\..\Infrastructure\BinaryObjectStorage\BinaryObjectStorage.csproj" />
         <ProjectReference Include="..\..\Infrastructure\Database\Database.csproj" />
         <ProjectReference Include="..\..\Infrastructure\PushNotifier\PushNotifier.csproj" />

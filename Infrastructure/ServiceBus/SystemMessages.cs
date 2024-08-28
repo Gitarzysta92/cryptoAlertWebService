@@ -1,4 +1,4 @@
-namespace Aspects;
+namespace ServiceBus.Constants;
 
 public static class SystemMessages
 {

@@ -1,4 +1,4 @@
-namespace Aspects.Models;
+namespace ServiceBus.Models;
 
 public struct SystemMessage
 {

@@ -1,9 +1,10 @@
 ﻿using System.Reactive.Linq;
 using System.Text.Json;
-using Aspects;
 using AutoMapper;
 using PriceAggregator.Exchanges.ByBit.Models;
 using PriceAggregator.Repositories;
+using ServiceBus.Constants;
+using ServiceBus.Services;
 using Shared.Data;
 using Shared.Models;
 using WebSocketGateway.Interfaces;
@@ -16,7 +17,7 @@ public class ByBitHandlerService
 	private const string Uri = "wss://stream.bybit.com/realtime";
 	private readonly IMapper _mapper;
 	private readonly RatesRepository _ratesRepository;
-	private readonly ServiceBus _serviceBus;
+	private readonly MessageService _serviceBus;
 
 
 	private readonly IWebSocketClientService _webSocketClientService;
@@ -25,7 +26,7 @@ public class ByBitHandlerService
 		IWebSocketClientService webSocketClientService,
 		IMapper mapper,
 		RatesRepository ratesRepository,
-		ServiceBus serviceBus
+    MessageService serviceBus
 	)
 	{
 		_webSocketClientService = webSocketClientService;

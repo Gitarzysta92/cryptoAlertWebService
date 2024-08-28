@@ -4,12 +4,13 @@ using System.Text.Json;
 using Alerts.Interfaces;
 using Alerts.Models;
 using Alerts.Repositories;
-using Aspects;
+
 using Coins.Models;
 using Database.Models;
 using PriceProvider.Models;
 using PushNotifier.Interfaces;
 using PushNotifier.Models;
+using ServiceBus.Services;
 
 namespace Alerts.Services;
 
@@ -20,12 +21,12 @@ public class AlertsEmitterService : IAlertsEmitterService
 	private readonly AlertsRepository _alertsRepository;
 	private readonly CoinsRepository _coinsRepository;
 	private readonly IPushNotifierService _pushNotifierService;
-	private readonly ServiceBus _serviceBus;
+	private readonly MessageService _serviceBus;
 
 	public AlertsEmitterService(
 		AlertsRepository alertsRepository,
 		CoinsRepository coinsRepository,
-		ServiceBus serviceBus,
+		MessageService serviceBus,
 		IPushNotifierService pushNotifierService)
 	{
 		_alertsRepository = alertsRepository;
